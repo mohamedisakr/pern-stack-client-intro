@@ -8,7 +8,7 @@ function App() {
   return (
     <Fragment>
       <div className="container">
-        {/* <StudentAddBox></StudentAddBox> */}
+        <StudentAddBox></StudentAddBox>
         <StudentDataGrid></StudentDataGrid>
       </div>
     </Fragment>

@@ -5,24 +5,50 @@ const StudentAddBox = () => {
   const [classIn, setClassIn] = useState();
   const [major, setMajor] = useState("");
   const [studentName, setStudentName] = useState("");
-  const url = "http://localhost:5000/api/students";
+
+  const url = process.env.REACT_APP_STUDENT_ROUTE;
 
   const submitFormHandler = async (event) => {
     event.preventDefault();
+    console.table({ studentNumber, classIn, major, studentName });
+    // /*
     try {
       const newStudent = { studentNumber, classIn, major, studentName };
-      //   const res = await fetch(process.env.REACT_APP_STUDENT_ROUTE, {
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        mode: "no-cors",
+        // mode: "no-cors",
         body: JSON.stringify(newStudent),
+        // console.log(body);
       });
 
-      // console.log(res);
+      console.log(res);
+      // reset all state variables
+      setStudentNumber();
+      setClassIn();
+      setMajor("");
+      setStudentName("");
+      window.location = "/";
     } catch (err) {
       console.error(err.message);
     }
+    // */
+  };
+
+  const studentNumberChangeHandler = (event) => {
+    setStudentNumber(event.target.value);
+  };
+
+  const classInChangeHandler = (event) => {
+    setClassIn(event.target.value);
+  };
+
+  const majorChangeHandler = (event) => {
+    setMajor(event.target.value);
+  };
+
+  const studentNameChangeHandler = (event) => {
+    setStudentName(event.target.value);
   };
 
   return (
@@ -39,7 +65,7 @@ const StudentAddBox = () => {
           id="studentNumberInput"
           className="form-control"
           value={studentNumber}
-          onChange={(event) => setStudentNumber(event.target.value)}
+          onChange={studentNumberChangeHandler}
         />
 
         <label htmlFor="classInput">Class:</label>
@@ -49,7 +75,7 @@ const StudentAddBox = () => {
           id="classInput"
           className="form-control"
           value={classIn}
-          onChange={(event) => setClassIn(event.target.value)}
+          onChange={classInChangeHandler}
         />
 
         <label htmlFor="majorInput">Major:</label>
@@ -59,7 +85,7 @@ const StudentAddBox = () => {
           id="majorInput"
           className="form-control"
           value={major}
-          onChange={(event) => setMajor(event.target.value)}
+          onChange={majorChangeHandler}
         />
 
         <label htmlFor="studentNameInput">Student Name:</label>
@@ -69,7 +95,7 @@ const StudentAddBox = () => {
           id="studentNameInput"
           className="form-control"
           value={studentName}
-          onChange={(event) => setStudentName(event.target.value)}
+          onChange={studentNameChangeHandler}
         />
 
         {/* <input type='' value="Add Student" className="btn btn-success" /> */}
